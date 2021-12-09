@@ -1,0 +1,19 @@
+{
+  "name": "node-capture",
+  "version": "1.0.0",
+  "description": "node-capture",
+  "main": "index.js",
+  "scripts": {
+    "sign:win": "node ./sign-win.js"
+  },
+  "private": true,
+  "author": "xy",
+  "license": "ISC",
+  "files": [
+    "index.js",
+    "bin/**/*"
+  ],
+  "devDependencies": {
+    "signtool": "^1.0.0"
+  }
+}

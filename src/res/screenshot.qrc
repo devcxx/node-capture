@@ -1,0 +1,25 @@
+<RCC>
+    <qresource prefix="/">
+        <file>image/Arrow.png</file>
+        <file>image/Brush.PNG</file>
+        <file>image/Circle.png</file>
+        <file>image/cursor-move.png</file>
+        <file>image/Exit.png</file>
+        <file>image/Finish.png</file>
+        <file>image/line_weight_3.png</file>
+        <file>image/line_weight_4.png</file>
+        <file>image/line_weight_5.png</file>
+        <file>image/Magnifier.png</file>
+        <file>image/Mosaic.png</file>
+        <file>image/Rectangle.png</file>
+        <file>image/Save.png</file>
+        <file>image/Text.png</file>
+        <file>image/Undo.png</file>
+        <file>image/hover_icon.png</file>
+        <file>image/pressed_icon1.png</file>
+        <file>image/pressed_icon2.png</file>
+        <file>image/pressed_icon3.png</file>
+        <file>image/Pin.png</file>
+        <file>zh_CN.qm</file>
+    </qresource>
+</RCC>
