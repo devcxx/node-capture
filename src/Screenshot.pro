@@ -99,6 +99,7 @@ unix {
 }
 
 macos {
+    ICON = $$PWD/res/Screenshot.icns
     LIBS += \
          -framework Cocoa
 
@@ -107,6 +108,12 @@ macos {
 
     OBJECTIVE_SOURCES += \
          src/authscreencapture.mm
+}
+
+DESTDIR = $$PWD/bin
+
+mac {
+    QMAKE_POST_LINK += $$quote($$[QT_INSTALL_BINS]/macdeployqt \"$${DESTDIR}/$${TARGET}.app\" -libpath=\"$$DESTDIR\"$$escape_expand(\\n\\t))
 }
 
 INCLUDEPATH += $$PWD/include
@@ -124,7 +131,7 @@ FORMS += \
 RESOURCES += \
     res/screenshot.qrc
 
-DESTDIR = $$PWD/bin
+
 
 #MOC_DIR = $$PWD/src
 #RCC_DIR = $$PWD/src

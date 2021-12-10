@@ -10,7 +10,7 @@ let captrue = (callback) => {
     if (process.platform == 'win32')
         exec = path.join(__dirname, `/bin/win32/Screenshot.exe`)
     else if (process.platform == 'darwin')
-        exec = path.join(__dirname, `/bin/darwin/Screenshot.app`)
+        exec = path.join(__dirname, `/bin/darwin/Screenshot.app/Contents/MacOS/Screenshot`)
     else {
         console.warn('platform not support')
         return;
