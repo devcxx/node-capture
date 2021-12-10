@@ -90,6 +90,7 @@ HEADERS += \
     include/pinwidget.h
 
 win32 {
+    RC_ICONS = $$PWD/res/icon.ico
     LIBS += -lUser32
 }
 
