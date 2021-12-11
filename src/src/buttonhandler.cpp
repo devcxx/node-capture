@@ -110,6 +110,11 @@ int ButtonHandler::thickNess()
     return m_colorPicker->thickNess();
 }
 
+QFont ButtonHandler::font()
+{
+    return m_colorPicker->font();
+}
+
 void ButtonHandler::onShowColorPicker()
 {
     m_colorPicker->show();

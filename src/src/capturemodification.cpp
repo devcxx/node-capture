@@ -21,6 +21,23 @@ CaptureModification::CaptureModification(
     }
 }
 
+CaptureModification::CaptureModification(
+    const CaptureButton::ButtonType t,
+    const QVector<QPoint> &points,
+    const QColor &color,
+    const QFont &font,
+    const QStringList& texts,
+    QObject *parent)
+    : QObject(parent)
+    , m_color(color)
+    , m_type(t)
+    , m_font(font)
+    , m_coords(points)
+    , m_texts(texts)
+{
+     m_tool = ToolFactory().CreateTool(t, this);
+}
+
 CaptureButton::ButtonType CaptureModification::buttonType() const
 {
     return m_type;
@@ -46,6 +63,16 @@ int CaptureModification::thickness() const
     return m_thickness;
 }
 
+QFont CaptureModification::font() const
+{
+    return m_font;
+}
+
+QStringList CaptureModification::texts() const
+{
+    return m_texts;
+}
+
 void CaptureModification::addPoint(const QPoint p)
 {
     if (m_tool->toolType() == CaptureTool::TYPE_LINE_DRAWER) {
@@ -58,4 +85,14 @@ void CaptureModification::addPoint(const QPoint p)
 void CaptureModification::setColor(QColor color)
 {
     m_color = color;
+}
+
+void CaptureModification::setFont(QFont font)
+{
+    m_font = font;
+}
+
+void CaptureModification::setTexts(QStringList texts)
+{
+    m_texts = texts;
 }

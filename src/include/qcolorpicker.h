@@ -11,6 +11,7 @@ public:
 public:
     QColor drawColor();
     int thickNess();
+    QFont font();
 
 private:
     void initControl();

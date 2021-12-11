@@ -35,10 +35,10 @@ CaptureTool::ToolWorkType CircleTool::toolType() const
     return TYPE_LINE_DRAWER;
 }
 
-void CircleTool::processImage(QPainter& painter, const QVector<QPoint>& points, const QColor& color, const int thickness)
+void CircleTool::processImage(QPainter& painter, const ShapeObject& object)
 {
-    painter.setPen(QPen(color, 2 + thickness));
-    painter.drawEllipse(QRect(points[0], points[1]));
+    painter.setPen(QPen(object.color, 2 + object.thickness));
+    painter.drawEllipse(QRect(object.points[0], object.points[1]));
 }
 
 void CircleTool::onPressed()

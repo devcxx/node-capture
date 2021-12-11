@@ -82,8 +82,12 @@ QPixmap Screenshot::overrideModifications(
 void Screenshot::paintInPainter(QPainter& painter,
     const CaptureModification* modification)
 {
-    const QVector<QPoint>& points = modification->points();
-    QColor color = modification->color();
-    int thickness = modification->thickness();
-    modification->tool()->processImage(painter, points, color, thickness);
+    ShapeObject object;
+    object.points = modification->points();
+    object.color = modification->color();
+    object.thickness = modification->thickness();
+    object.font = modification->font();
+    object.ts = modification->texts();
+
+    modification->tool()->processImage(painter, object);
 }

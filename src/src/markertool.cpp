@@ -40,17 +40,15 @@ CaptureTool::ToolWorkType MarkerTool::toolType() const
 
 void MarkerTool::processImage(
     QPainter& painter,
-    const QVector<QPoint>& points,
-    const QColor& color,
-    const int thickness)
+    const ShapeObject& object)
 {
-    QPoint p0 = points[0];
-    QPoint p1 = points[1];
+    QPoint p0 = object.points[0];
+    QPoint p1 = object.points[1];
     if (needsAdjustment(p0, p1)) {
         p1.setY(p0.y());
     }
     painter.setOpacity(0.35);
-    painter.setPen(QPen(color, 14 + thickness));
+    painter.setPen(QPen(object.color, 14 + object.thickness));
     painter.drawLine(p0, p1);
     painter.setOpacity(1);
 }

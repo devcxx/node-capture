@@ -103,16 +103,17 @@ QColor CaptureButton::m_mainColor = ConfigHandler().uiMainColorValue();
 static QMap<CaptureButton::ButtonType, int> buttonTypeOrder {
     { CaptureButton::TYPE_PENCIL, 0 },
     { CaptureButton::TYPE_ARROW, 1 },
-    { CaptureButton::TYPE_SELECTION, 2 },
-    { CaptureButton::TYPE_CIRCLE, 3 },
-    { CaptureButton::TYPE_BLUR, 4 },
-    { CaptureButton::TYPE_MOVESELECTION, 5 },
-    { CaptureButton::TYPE_UNDO, 6 },
-    { CaptureButton::TYPE_COPY, 7 },
-//    {CaptureButton::TYPE_PIN, 8},
+    {CaptureButton::TYPE_TEXT, 2},
+    { CaptureButton::TYPE_SELECTION, 3 },
+    { CaptureButton::TYPE_CIRCLE, 4 },
+    { CaptureButton::TYPE_BLUR, 5 },
+    { CaptureButton::TYPE_MOVESELECTION, 6 },
+    { CaptureButton::TYPE_UNDO, 7 },
+    { CaptureButton::TYPE_COPY, 8 },
+//    {CaptureButton::TYPE_PIN, 9},
 
-    { CaptureButton::TYPE_EXIT, 9 },
-    { CaptureButton::TYPE_SAVE, 10 }
+    { CaptureButton::TYPE_EXIT, 10 },
+    { CaptureButton::TYPE_SAVE, 11 }
 };
 
 int CaptureButton::getPriorityByButton(CaptureButton::ButtonType b)
@@ -124,6 +125,7 @@ int CaptureButton::getPriorityByButton(CaptureButton::ButtonType b)
 QVector<CaptureButton::ButtonType> CaptureButton::iterableButtonTypes = {
     CaptureButton::TYPE_PENCIL,
     CaptureButton::TYPE_ARROW,
+    CaptureButton::TYPE_TEXT,
     CaptureButton::TYPE_SELECTION,
     CaptureButton::TYPE_CIRCLE,
     CaptureButton::TYPE_BLUR,

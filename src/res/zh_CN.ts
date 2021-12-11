@@ -92,4 +92,11 @@
         <translation>撤销编辑</translation>
     </message>
 </context>
+<context>
+    <name>TextTool</name>
+    <message>
+        <source>Text tool</source>
+        <translation>文字工具</translation>
+    </message>
+</context>
 </TS>

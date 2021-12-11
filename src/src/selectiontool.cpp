@@ -35,10 +35,10 @@ CaptureTool::ToolWorkType SelectionTool::toolType() const
     return TYPE_LINE_DRAWER;
 }
 
-void SelectionTool::processImage(QPainter& painter, const QVector<QPoint>& points, const QColor& color, const int thickness)
+void SelectionTool::processImage(QPainter& painter, const ShapeObject& object)
 {
-    painter.setPen(QPen(color, 2 + thickness));
-    painter.drawRect(QRect(points[0], points[1]));
+    painter.setPen(QPen(object.color, 2 + object.thickness));
+    painter.drawRect(QRect(object.points[0], object.points[1]));
 }
 
 void SelectionTool::onPressed()

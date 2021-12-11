@@ -35,12 +35,9 @@ CaptureTool::ToolWorkType MoveTool::toolType() const
     return TYPE_WORKER;
 }
 
-void MoveTool::processImage(QPainter& painter, const QVector<QPoint>& points, const QColor& color, const int thickness)
+void MoveTool::processImage(QPainter& painter, const ShapeObject& object)
 {
-    Q_UNUSED(painter);
-    Q_UNUSED(points);
-    Q_UNUSED(color);
-    Q_UNUSED(thickness);
+    Q_UNUSED(object);
 }
 
 void MoveTool::onPressed()

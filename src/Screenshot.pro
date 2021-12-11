@@ -51,7 +51,10 @@ SOURCES += \
     src/toolfactory.cpp \
     src/undotool.cpp \
     src/activewindow.cpp \
-    src/pinwidget.cpp
+    src/pinwidget.cpp \
+    src/texttool.cpp \
+    src/customtextedit.cpp \
+    src/inputtextedit.cpp
 
 HEADERS += \
     include/screenshot_global.h \
@@ -87,7 +90,10 @@ HEADERS += \
     include/toolfactory.h \
     include/undotool.h \
     include/activewindow.h \
-    include/pinwidget.h
+    include/pinwidget.h \
+    include/texttool.h \
+    include/customtextedit.h \
+    include/inputtextedit.h \
 
 win32 {
     RC_ICONS = $$PWD/res/icon.ico

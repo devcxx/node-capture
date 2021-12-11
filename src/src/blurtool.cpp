@@ -41,7 +41,7 @@ CaptureTool::ToolWorkType BlurTool::toolType() const
     return TYPE_LINE_DRAWER;
 }
 
-void BlurTool::processImage(QPainter& painter, const QVector<QPoint>& points, const QColor& color, const int thickness)
+void BlurTool::processImage(QPainter& painter, const ShapeObject& object)
 {
     //    Q_UNUSED(color);
     //    Q_UNUSED(thickness);
@@ -59,12 +59,12 @@ void BlurTool::processImage(QPainter& painter, const QVector<QPoint>& points, co
     //    blur->setBlurRadius(15);
     //    scene.render(&painter, selection, QRectF());
 
-    if (points.isEmpty())
+    if (object.points.isEmpty())
         return;
 
 
-    QPoint p0=points[0];
-    QPoint p1=points.last();
+    QPoint p0=object.points[0];
+    QPoint p1=object.points.last();
     QRect selection = QRect(p0,p1).normalized();
 
 

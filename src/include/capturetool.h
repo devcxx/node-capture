@@ -2,7 +2,19 @@
 #define CAPTURETOOL_H
 #include <QObject>
 #include <QVector>
+#include <QFont>
+#include <QColor>
+
 class QPainter;
+
+struct ShapeObject {
+    QVector<QPoint> points;
+    QStringList ts;
+    QFont font;
+    QColor color;
+    int thickness;
+};
+
 class CaptureTool : public QObject {
     Q_OBJECT
 public:
@@ -32,7 +44,7 @@ public:
     virtual QString iconName() const = 0;
     virtual QString name() const = 0;
     virtual QString description() const = 0;
-    virtual void processImage(QPainter& painter, const QVector<QPoint>& points, const QColor& color, const int thickness) = 0;
+    virtual void processImage(QPainter& painter, const ShapeObject& object) = 0;
 signals:
     void requestAction(Request r);
 public slots:

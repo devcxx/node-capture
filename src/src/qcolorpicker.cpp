@@ -4,6 +4,23 @@
 #include <QPainter>
 #include <QStyleOption>
 
+namespace  {
+#ifdef Q_OS_WIN
+QStringList fonts_families = { "Open Sans", "Microsoft YaHei" };
+QStringList fonts_semibold_families = { "Open Sans Semibold", "Microsoft YaHei" };
+QString fonts_family = { "Microsoft YaHei" };
+QString fonts_semibold_family = { "Microsoft YaHei" };
+#endif
+#ifdef Q_OS_MAC
+QStringList fonts_families = { "Helvetica Neue", "PingFang SC" };
+QStringList fonts_semibold_families = { "Helvetica Neue Medium", "PingFang SC" };
+//QString fonts_family = "Helvetica Neue";
+//QString fonts_semibold_family = "Helvetica Neue Medium";
+QString fonts_family = "PingFang SC";
+QString fonts_semibold_family = "PingFang SC";
+#endif
+}
+
 namespace ColorMap {
 const QMap<QString, QColor> colormap = {
     { "rgb(0, 0, 0)", QColor(0, 0, 0) },
@@ -113,6 +130,18 @@ QColor QColorPicker::drawColor()
 int QColorPicker::thickNess()
 {
     return m_thickness;
+}
+
+QFont QColorPicker::font()
+{
+    if (m_thickness == 1) {
+        return QFont(fonts_family, 11);
+    } else if (m_thickness == 4) {
+        return QFont(fonts_family, 14);
+    } else if (m_thickness == 8) {
+        return QFont(fonts_family, 18);
+    }
+    return QFont(fonts_family, 11);
 }
 
 void QColorPicker::paintEvent(QPaintEvent* /*event*/)

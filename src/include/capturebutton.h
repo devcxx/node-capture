@@ -22,6 +22,7 @@ public:
         TYPE_SAVE = 8,
         TYPE_EXIT = 9,
         TYPE_PIN = 10,
+        TYPE_TEXT = 11,
     };
     CaptureButton() = delete;
     explicit CaptureButton(const ButtonType, QWidget* parent = nullptr);

@@ -35,13 +35,13 @@ CaptureTool::ToolWorkType PencilTool::toolType() const
     return TYPE_PATH_DRAWER;
 }
 
-void PencilTool::processImage(QPainter& painter, const QVector<QPoint>& points, const QColor& color, const int thickness)
+void PencilTool::processImage(QPainter& painter, const ShapeObject& object)
 {
-    painter.setPen(QPen(color, 2 + thickness));
-    if (points.length() == 2) {
-        painter.drawLine(points[0], points[1]);
+    painter.setPen(QPen(object.color, 2 + object.thickness));
+    if (object.points.length() == 2) {
+        painter.drawLine(object.points[0], object.points[1]);
     } else {
-        painter.drawPolyline(points.data(), points.size());
+        painter.drawPolyline(object.points.data(), object.points.size());
     }
 }
 

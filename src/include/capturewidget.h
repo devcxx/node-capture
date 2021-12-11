@@ -5,6 +5,7 @@
 #include "capturetool.h"
 #include "confighandler.h"
 #include "screenshot_global.h"
+#include "inputtextedit.h"
 
 #include <QPointer>
 #include <QWidget>
@@ -28,6 +29,9 @@ public:
     QPixmap pixmap();
     void showCapture();
     void bind(std::function<void(bool)> cb);
+    CaptureButton::ButtonType toolType();
+    QVector<CaptureModification*>& modifications();
+    QColor drawColor();
 
 signals:
     void capturePixmap(const QPixmap& pixmap);
@@ -98,5 +102,6 @@ private:
     bool m_bCap;
     bool m_captureEnabled = true;
     QVector<QRect> m_rects;
+    InputTextEdit* m_inputTextEdit;
 };
 #endif

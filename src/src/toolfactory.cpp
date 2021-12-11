@@ -14,6 +14,7 @@
 #include "sizeindicatortool.h"
 #include "undotool.h"
 #include "pinwidget.h"
+#include "texttool.h"
 
 ToolFactory::ToolFactory(QObject* parent)
     : QObject(parent)
@@ -58,6 +59,9 @@ CaptureTool* ToolFactory::CreateTool(
         break;
     case CaptureButton::TYPE_PIN:
         tool = new PinTool(parent);
+        break;
+    case CaptureButton::TYPE_TEXT:
+        tool = new TextTool(parent);
         break;
     default: {
         Q_ASSERT(false && "no matchtype");

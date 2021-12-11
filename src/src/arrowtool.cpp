@@ -68,11 +68,11 @@ CaptureTool::ToolWorkType ArrowTool::toolType() const
     return TYPE_LINE_DRAWER;
 }
 
-void ArrowTool::processImage(QPainter& painter, const QVector<QPoint>& points, const QColor& color, const int thickness)
+void ArrowTool::processImage(QPainter& painter, const ShapeObject& object)
 {
-    painter.setPen(QPen(color, 2 + thickness));
-    painter.drawLine(getShorterLine(points[0], points[1], thickness));
-    painter.fillPath(getArrowHead(points[0], points[1], thickness), QBrush(color));
+    painter.setPen(QPen(object.color, 2 + object.thickness));
+    painter.drawLine(getShorterLine(object.points[0], object.points[1], object.thickness));
+    painter.fillPath(getArrowHead(object.points[0], object.points[1], object.thickness), QBrush(object.color));
 }
 
 void ArrowTool::onPressed()

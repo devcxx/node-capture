@@ -20,6 +20,8 @@ public:
     void setButtons(QWidget* parent, const QVector<CaptureButton*>, QColorPicker* colorPicker);
     QColor drawColor();
     int thickNess();
+    QFont font();
+
 public slots:
     void hide();
     void show();

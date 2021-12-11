@@ -90,6 +90,9 @@ CaptureWidget::CaptureWidget(bool bCap, QWidget* parent)
     setFocusPolicy(Qt::StrongFocus);
     //installEventFilter(this);
 
+    m_inputTextEdit = new InputTextEdit(this);
+    m_inputTextEdit->hide();
+
     ActiveWindow aw;
     m_rects = aw.enum_window();
 }
@@ -132,7 +135,7 @@ void CaptureWidget::updateButtons()
         if (type == CaptureButton::ButtonType::TYPE_ARROW
             || type == CaptureButton::ButtonType::TYPE_PENCIL
             || type == CaptureButton::ButtonType::TYPE_SELECTION
-            || type == CaptureButton::ButtonType::TYPE_CIRCLE) {
+            || type == CaptureButton::ButtonType::TYPE_CIRCLE || type == CaptureButton::ButtonType::TYPE_TEXT) {
             connect(btn, &CaptureButton::pressed, m_buttonHandler, &ButtonHandler::onShowColorPicker);
         }
         connect(btn, &CaptureButton::pressed, this, [btn]() { btn->setChecked(true); });
@@ -177,6 +180,21 @@ void CaptureWidget::bind(std::function<void(bool)> cb)
     m_cb = cb;
 }
 
+CaptureButton::ButtonType CaptureWidget::toolType()
+{
+    return m_state;
+}
+
+QVector<CaptureModification *> &CaptureWidget::modifications()
+{
+    return m_modifications;
+}
+
+QColor CaptureWidget::drawColor()
+{
+    return m_buttonHandler->drawColor();
+}
+
 void CaptureWidget::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);
@@ -185,7 +203,7 @@ void CaptureWidget::paintEvent(QPaintEvent*)
     // a temporal modification without antialiasing in the pencil tool for
     // performance. When we are not drawing we just shot the modified screenshot
     bool stateIsSelection = m_state == CaptureButton::TYPE_MOVESELECTION;
-    if (m_mouseIsClicked && !stateIsSelection) {
+    if (m_mouseIsClicked && !stateIsSelection && m_modifications.size()) {
         painter.drawPixmap(0, 0, m_screenshot->paintTemporalModification(m_modifications.last()));
     } else if (m_toolIsForDrawing && !stateIsSelection) {
         CaptureButton::ButtonType type = CaptureButton::ButtonType::TYPE_MOVESELECTION;
@@ -241,7 +259,23 @@ void CaptureWidget::mousePressEvent(QMouseEvent* e)
         m_startMove = false;
     }
 
-    if (m_state != CaptureButton::TYPE_MOVESELECTION) {
+    if (m_state == CaptureButton::TYPE_TEXT) {
+        if (m_selection.contains(e->pos())) {
+            setCursor(Qt::IBeamCursor);
+            QSize size=m_inputTextEdit->customTextEdit->size();
+            m_inputTextEdit->customTextEdit->setFocus();
+            m_inputTextEdit->move(QPoint(e->pos().x()-10,e->y()-size.height()/2));
+            m_inputTextEdit->show();
+            // clear textedit
+            m_inputTextEdit->customTextEdit->clear();
+            m_inputTextEdit->customTextEdit->setTextColor(m_buttonHandler->drawColor());
+            m_inputTextEdit->customTextEdit->setFont(m_buttonHandler->font());
+        } else {
+            return;
+        }
+    }
+
+    if (m_state != CaptureButton::TYPE_MOVESELECTION && m_state != CaptureButton::TYPE_TEXT) {
         if (!m_selection.contains(e->pos())) {
             //不允许在截图区域外绘线条
             return;
@@ -393,7 +427,7 @@ void CaptureWidget::mouseMoveEvent(QMouseEvent* e)
         }
 
         moveAmplifier();
-    } else if (m_mouseIsClicked && m_state != CaptureButton::TYPE_MOVESELECTION) {
+    } else if (m_mouseIsClicked && m_state != CaptureButton::TYPE_MOVESELECTION && m_state != CaptureButton::TYPE_TEXT) {
         if (!m_selection.contains(m_mousePos)) {
             //mouse move out selection
             updateHandles();
@@ -431,7 +465,7 @@ void CaptureWidget::mouseReleaseEvent(QMouseEvent* e)
         m_rightClick = false;
         // when we end the drawing of a modification in the capture we have to
         // register the last point and add the whole modification to the screenshot
-    } else if (m_mouseIsClicked && m_state != CaptureButton::TYPE_MOVESELECTION) {
+    } else if (m_mouseIsClicked && m_state != CaptureButton::TYPE_MOVESELECTION && m_modifications.size()) {
         m_screenshot->paintModification(m_modifications.last());
         update();
     }
@@ -569,6 +603,8 @@ void CaptureWidget::setState(CaptureButton* b)
         }
         update();
     }
+    if ( b->buttonType() != CaptureButton::TYPE_EXIT)
+        m_inputTextEdit->hide();
 }
 
 void CaptureWidget::handleButtonSignal(CaptureTool::Request r)
