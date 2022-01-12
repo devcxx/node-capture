@@ -782,13 +782,16 @@ void CaptureWidget::saveScreenshot()
 {
     //emit capturePixmap(pixmap());
     QClipboard* clipboard = QApplication::clipboard();
+    connect(clipboard, &QClipboard::dataChanged, this, [&]() {
+        QApplication::exit(1);
+    });
     // clipboard->setPixmap(m_screenshot->baseScreenshot().copy(m_selection));
     clipboard->setPixmap(pixmap()); // 保留用户在截图上编辑信息
     if (m_cb)
         m_cb(true);
     emit sigCapFinished(m_bCap);
     close();
-    QApplication::exit(1);
+    
 }
 
 void CaptureWidget::pinScreenshot()
