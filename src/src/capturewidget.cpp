@@ -161,10 +161,12 @@ QPixmap CaptureWidget::pixmap()
 
 void CaptureWidget::showCapture()
 {
+/*
 #if defined(Q_OS_MAC)
     if (!authRecordScreen())
         return;
 #endif
+*/
     QPoint globalCursorPos = QCursor::pos();
     int screenNumber = qApp->desktop()->screenNumber(globalCursorPos);
     setGeometry(QApplication::desktop()->screen(screenNumber)->geometry());
