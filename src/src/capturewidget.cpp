@@ -318,7 +318,7 @@ static bool equivalent(int lhs, int rhs, int epsilon)
 void CaptureWidget::mouseMoveEvent(QMouseEvent* e)
 {
     // 忽略点击时移幅太小的抖动
-    if (m_mouseIsClicked) {
+    if (m_mouseIsClicked && m_state != CaptureButton::TYPE_MOVESELECTION) {
         if (equivalent(m_pressPos.x(), e->pos().x(), eps)
             || equivalent(m_pressPos.y(), e->pos().y(), eps)) {
             return;
